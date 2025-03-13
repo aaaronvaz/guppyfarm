@@ -19,5 +19,17 @@ class AppTheme {
       bodyLarge: GoogleFonts.quicksand(fontSize: 18, color: Colors.black),
       bodyMedium: GoogleFonts.quicksand(fontSize: 16, color: Colors.black87),
     ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: Colors.blue, // FAB background color
+      foregroundColor: Colors.white, // Icon color
+      elevation: 6.0, // Shadow effect
+      iconSize: 40,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      sizeConstraints: BoxConstraints.tightFor(
+        width: 60.0, // Standard FAB width
+        height: 60.0, // Standard FAB height
+      ),
+      extendedPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+    ),
   );
 }

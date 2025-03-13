@@ -8,9 +8,37 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScreen(
       title: 'Home',
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [Text('1'), Text('2'), Text('3'), Text('4')],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              height: 200,
+              width: double.infinity,
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.blueGrey, width: 4),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text("Featured Highlights"),
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(color: Colors.amber),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 200,
+              width: double.infinity,
+              decoration: BoxDecoration(color: Colors.red),
+              child: const Text('Join Us On Youtube'),
+            ),
+          ],
+        ),
       ),
     );
   }

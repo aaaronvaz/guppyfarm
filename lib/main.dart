@@ -20,11 +20,12 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.defaultTheme,
       initialRoute: '/',
       routes: {
-        '/': (context) => const Home(),
+        '/': (context) => const Splash(),
+        '/Home': (context) => const Home(),
         '/About': (context) => const About(),
-        '/Contact': (context) => const Splash(title: '2'),
-        '/Category/Live-Fishes': (context) => const Splash(title: '3'),
-        '/Wish-List': (context) => const WishList(),
+        '/Contact': (context) => const Splash(),
+        '/Category/Live-Fishes': (context) => const Splash(),
+        '/Wish-List': (context) => WishList(),
       },
     );
   }

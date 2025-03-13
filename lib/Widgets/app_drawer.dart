@@ -35,7 +35,7 @@ class AppDrawer extends StatelessWidget {
             onTap:
                 () => {
                   Navigator.pop(context),
-                  Navigator.pushReplacementNamed(context, '/'),
+                  Navigator.pushReplacementNamed(context, '/Home'),
                 },
           ),
           ListTile(

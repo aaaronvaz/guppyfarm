@@ -5,8 +5,11 @@ class FloatingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton.large(
+    return FloatingActionButton(
+      //label: const Text('Contact'),
+      //icon: Icon(Icons.message_rounded),
       child: Icon(Icons.message_rounded),
+
       onPressed: () => _showContactOptions(context),
     );
   }

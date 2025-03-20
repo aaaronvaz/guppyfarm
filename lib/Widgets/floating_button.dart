@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FloatingButton extends StatelessWidget {
   const FloatingButton({super.key});
@@ -6,13 +7,71 @@ class FloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      elevation: 10,
       //label: const Text('Contact'),
       //icon: Icon(Icons.message_rounded),
-      child: Icon(Icons.message_rounded),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Icon(Icons.message_rounded, size: 40),
+      ),
 
       onPressed: () => _showContactOptions(context),
     );
   }
+}
+
+Future<void> openDialer() async {
+  final Uri url = Uri(scheme: 'tel', path: '+919108837214');
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url, mode: LaunchMode.platformDefault);
+  } else {
+    throw 'Dialer Unavailable';
+  }
+}
+
+Future<void> openWhatsApp(String no) async {
+  final Uri appUrl = Uri.parse("whatsapp://send?phone=+91$no");
+  final Uri webUrl = Uri.parse("https://wa.me/+91$no");
+
+  if (await canLaunchUrl(appUrl)) {
+    await launchUrl(appUrl, mode: LaunchMode.externalApplication);
+  } else {
+    await launchUrl(webUrl, mode: LaunchMode.externalApplication);
+  }
+}
+
+Future<void> openGmail() async {
+  final Uri emailUri = Uri(scheme: 'mailto', path: 'blrguppyfarm@gmail.com');
+
+  if (await canLaunchUrl(emailUri)) {
+    await launchUrl(emailUri, mode: LaunchMode.externalApplication);
+  } else {
+    throw 'Could not launch Gmail';
+  }
+}
+
+Future<void> openYouTube() async {
+  final Uri url = Uri.parse("https://www.youtube.com/@blrguppyfarm");
+
+  if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+    throw "Could not launch youtube";
+  }
+}
+
+Future<void> openInstagram() async {
+  final Uri appUrl = Uri.parse("instagram://user?username=wwe");
+  final Uri webUrl = Uri.parse("https://www.instagram.com/wwe");
+
+  if (await canLaunchUrl(appUrl)) {
+    await launchUrl(appUrl, mode: LaunchMode.externalApplication);
+  } else {
+    await launchUrl(webUrl, mode: LaunchMode.externalApplication);
+  }
+}
+
+void openSnackBar(BuildContext ctx, String txt) {
+  ScaffoldMessenger.of(ctx).hideCurrentSnackBar();
+  ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(content: Text(txt)));
 }
 
 void _showContactOptions(BuildContext ctx) {
@@ -21,43 +80,97 @@ void _showContactOptions(BuildContext ctx) {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
+    isDismissible: false,
+    isScrollControlled: true,
     builder: (context) {
-      return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: Icon(Icons.call, color: Colors.green),
-              title: Text("Call"),
-              onTap: () {
-                Navigator.pop(context);
-                // Add calling functionality here
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.camera_alt, color: Colors.purple),
-              title: Text("Instagram"),
-              onTap: () {
-                Navigator.pop(context);
-                // Add Instagram opening functionality here
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.video_library, color: Colors.red),
-              title: Text("YouTube"),
-              onTap: () {
-                Navigator.pop(context);
-                // Add YouTube opening functionality here
-              },
-            ),
-            const Divider(),
-            ListTile(
-              leading: Icon(Icons.cancel, color: Colors.grey),
-              title: Text("Cancel"),
-              onTap: () => Navigator.pop(context), // Close sheet
-            ),
-          ],
+      return SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Icon(Icons.call, color: Colors.green, size: 30),
+                title: Text(
+                  "Call",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  openDialer();
+                },
+              ),
+              ListTile(
+                leading: Image.asset(
+                  'Assets/Icons/wa.png',
+                  width: 30,
+                  height: 30,
+                ),
+                title: Text(
+                  "WhatsApp",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  openWhatsApp('9108837214');
+                },
+              ),
+              ListTile(
+                leading: Image.asset(
+                  'Assets/Icons/gm.png',
+                  width: 30,
+                  height: 30,
+                ),
+                title: Text(
+                  "Gmail",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  openGmail();
+                },
+              ),
+              ListTile(
+                leading: Image.asset(
+                  'Assets/Icons/ig.png',
+                  width: 30,
+                  height: 30,
+                ),
+                title: Text(
+                  "Instagram",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  openInstagram();
+                },
+              ),
+              ListTile(
+                leading: Image.asset(
+                  'Assets/Icons/yt.png',
+                  width: 30,
+                  height: 30,
+                ),
+                title: Text(
+                  "YouTube",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  openYouTube();
+                },
+              ),
+              const Divider(),
+              ListTile(
+                leading: Icon(Icons.cancel, color: Colors.grey, size: 30),
+                title: Text(
+                  "Cancel",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onTap: () => Navigator.pop(context),
+              ),
+            ],
+          ),
         ),
       );
     },

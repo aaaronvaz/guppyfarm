@@ -57,7 +57,10 @@ class AppDrawer extends StatelessWidget {
                 },
           ),
           ExpansionTile(
-            leading: Icon(Icons.category),
+            leading: IconTheme(
+              data: IconThemeData(color: Colors.blue),
+              child: Icon(Icons.category),
+            ),
             title: Text("Categories"),
             initiallyExpanded: true,
             //expansionAnimationStyle: AnimationStyle(),

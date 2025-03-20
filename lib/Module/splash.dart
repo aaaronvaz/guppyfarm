@@ -14,7 +14,7 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(milliseconds: 2500), () {
+    Timer(const Duration(milliseconds: 2000), () {
       Navigator.pushReplacementNamed(context, '/Home');
     });
   }
@@ -25,10 +25,10 @@ class _SplashState extends State<Splash> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.white, Colors.lightBlue], // Customize colors
+            colors: [Colors.white, Colors.lightBlue],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            stops: [0.4, 0.7],
+            stops: [0.5, 0.7],
           ),
         ),
         child: Center(

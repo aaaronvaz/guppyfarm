@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:guppy_farm/Widgets/carousel.dart';
+import 'package:guppy_farm/Widgets/yt_player.dart';
 import 'package:guppy_farm/Module/base.dart';
 
 class Home extends StatelessWidget {
@@ -8,36 +10,29 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScreen(
       title: 'Home',
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              height: 200,
-              width: double.infinity,
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.blueGrey, width: 4),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 7),
+          child: Column(
+            children: [
+              const SizedBox(height: 8),
+              const Text(
+                'Bangalore Guppy Farm',
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 28),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text("Featured Highlights"),
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(color: Colors.amber),
-                  ),
-                ],
+              const SizedBox(height: 8),
+              const Text(
+                '🐠 Bringing Life to Your Aquarium! 🐠',
+                style: TextStyle(fontSize: 17),
               ),
-            ),
-            Container(
-              height: 200,
-              width: double.infinity,
-              decoration: BoxDecoration(color: Colors.red),
-              child: const Text('Join Us On Youtube'),
-            ),
-          ],
+              const SizedBox(height: 4),
+              const Divider(color: Colors.blueGrey),
+              const SizedBox(height: 4),
+              Carousel(),
+              const SizedBox(height: 8),
+              YtPlayer(),
+            ],
+          ),
         ),
       ),
     );

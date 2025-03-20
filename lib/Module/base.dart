@@ -25,7 +25,7 @@ class BaseScreen extends StatelessWidget {
         ),
       ),
       drawer: const AppDrawer(),
-      body: body,
+      body: SafeArea(child: body),
       floatingActionButton: enableFloat ? const FloatingButton() : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

@@ -21,6 +21,26 @@ class _WishListState extends State<WishList> {
     wishList = data.wishList;
   }
 
+  void removeItem(BuildContext ctx, Fish item) {
+    setState(() {
+      //removing item state
+    });
+
+    ScaffoldMessenger.of(ctx).hideCurrentSnackBar();
+    ScaffoldMessenger.of(ctx).showSnackBar(
+      SnackBar(
+        duration: const Duration(milliseconds: 2500),
+        content: const Text('Item Erased'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            //inserting back to particular index
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
@@ -60,6 +80,7 @@ class _WishListState extends State<WishList> {
                       setState(() {
                         fish.fav = false; // Unfavorite the fish
                         wishList = data.wishList; // Update the list
+                        removeItem(context, fish);
                       });
                     },
                     background: Container(
@@ -73,6 +94,7 @@ class _WishListState extends State<WishList> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: ListTile(
+                        tileColor: Color.fromARGB(255, 151, 205, 255),
                         leading: ClipRRect(
                           borderRadius: BorderRadius.circular(
                             8,

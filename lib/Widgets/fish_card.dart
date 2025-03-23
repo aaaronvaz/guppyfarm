@@ -61,7 +61,7 @@ class _FishCardState extends State<FishCard> {
           arguments: {
             'fishItem': widget.item,
             'onCancel': () => onCancel(context),
-            'onFavorite': () => onFavorite(context),
+            'onFavorite': (context) => onFavorite(context),
           },
         );
       },

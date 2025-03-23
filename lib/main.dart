@@ -4,6 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:guppy_farm/Module/home.dart';
 import 'package:guppy_farm/Module/about.dart';
 import 'package:guppy_farm/Module/splash.dart';
+import 'package:guppy_farm/Module/live_fish.dart';
+import 'package:guppy_farm/Data/fish.dart';
+import 'package:guppy_farm/Widgets/fish_details.dart';
+
 import 'package:guppy_farm/Module/wish_list.dart';
 import 'package:guppy_farm/theme.dart';
 
@@ -29,8 +33,24 @@ class MyApp extends StatelessWidget {
         '/Home': (context) => const Home(),
         '/About': (context) => const About(),
         '/Contact': (context) => const Splash(),
-        '/Category/Live-Fishes': (context) => const Splash(),
+        '/Category/Live-Fishes': (context) => LiveFish(),
         '/Wish-List': (context) => WishList(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == '/FishDetails') {
+          final args = settings.arguments as Map<String, dynamic>?;
+
+          if (args != null && args.containsKey('fishItem')) {
+            return MaterialPageRoute(
+              builder: (context) => FishDetails(
+                fishItem: args['fishItem'] as Fish,
+                onCancel: args['onCancel'] as VoidCallback,
+                onFavorite: args['onFavorite'] as VoidCallback,
+              ),
+            );
+          }
+        }
+        return null;
       },
     );
   }

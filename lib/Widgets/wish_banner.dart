@@ -10,9 +10,9 @@ class WishBanner {
       MaterialBanner(
         padding: const EdgeInsets.all(12),
         content: Expanded(
-          child: const Text(
+          child: Text(
             "Swipe Right To Clear A Product",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
         leading: const Icon(Icons.info, color: Colors.blue),
@@ -22,7 +22,12 @@ class WishBanner {
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
             },
-            child: const Text("DISMISS", style: TextStyle(color: Colors.red)),
+            child: Text(
+              "DISMISS",
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall!.copyWith(color: Colors.red),
+            ),
           ),
         ],
       ),

@@ -18,22 +18,28 @@ class _YtPlayerState extends State<YtPlayer> {
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: YoutubePlayer.convertUrlToId(
-        "https://www.youtube.com/watch?v=9GrQ7sgkAfo",
-      )!,
+      initialVideoId:
+          YoutubePlayer.convertUrlToId(
+            "https://www.youtube.com/watch?v=9GrQ7sgkAfo",
+          )!,
       flags: const YoutubePlayerFlags(
         autoPlay: false,
         mute: false,
         showLiveFullscreenButton: false,
         disableDragSeek: false,
       ),
-    )..addListener(() {
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _controller.addListener(() {
+        debugPrint("Controller State: ${_controller.value.isReady}");
         if (!_isPlayerReady && _controller.value.isReady) {
           setState(() {
             _isPlayerReady = true;
           });
         }
       });
+    });
   }
 
   @override
@@ -55,25 +61,32 @@ class _YtPlayerState extends State<YtPlayer> {
           SizedBox(
             height: 225,
             width: double.infinity,
-            child: _isPlayerReady
-                ? YoutubePlayer(
-                    controller: _controller,
-                    bottomActions: [],
-                    showVideoProgressIndicator: true,
-                    progressIndicatorColor: Colors.blueAccent,
-                  )
-                : Shimmer.fromColors(
-                    baseColor: Colors.grey[300]!,
-                    highlightColor: Colors.grey[100]!,
-                    child: Container(
-                      width: double.infinity,
-                      height: 225,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
+            child:
+                _isPlayerReady
+                    ? YoutubePlayer(
+                      controller: _controller,
+                      bottomActions: [],
+                      showVideoProgressIndicator: true,
+                      progressIndicatorColor: Colors.blueAccent,
+                      onReady: () {
+                        setState(() {
+                          _isPlayerReady = true;
+                        });
+                        debugPrint("Player is ready.");
+                      },
+                    )
+                    : Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        width: double.infinity,
+                        height: 225,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                       ),
                     ),
-                  ),
           ),
           const YtButton(),
         ],

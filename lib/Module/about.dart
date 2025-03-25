@@ -14,11 +14,12 @@ class About extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Welcome to Bangalore Guppy Farm',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleLarge,
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
             Padding(
               padding: EdgeInsets.all(10),
               child: SizedBox(
@@ -27,15 +28,15 @@ class About extends StatelessWidget {
                 child: Image.asset('Assets/logo.png', fit: BoxFit.cover),
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
             Expanded(
               child: SingleChildScrollView(
                 child: DefaultTextStyle(
                   style: const TextStyle(color: Colors.black, fontSize: 16),
                   child: RichText(
                     textAlign: TextAlign.start,
-                    text: const TextSpan(
-                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    text: TextSpan(
+                      style: Theme.of(context).textTheme.bodyLarge,
                       children: [
                         TextSpan(
                           text:
@@ -56,20 +57,36 @@ class About extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text:
-                              'Premium Quality:\tWe carefully breed and source guppies from the best genetic lines.\n',
+                          text: 'Premium Quality:\t',
+                          style: TextStyle(fontStyle: FontStyle.italic),
                         ),
                         TextSpan(
                           text:
-                              'Healthy & Disease-Free Fish:\tAll our guppies undergo strict health checks before delivery.\n',
+                              'We carefully breed and source guppies from the best genetic lines.\n',
+                        ),
+                        TextSpan(
+                          text: 'Healthy & Disease-Free Fish:\t',
+                          style: TextStyle(fontStyle: FontStyle.italic),
                         ),
                         TextSpan(
                           text:
-                              'Wide Variety:\tWe offer exotic imports along with well-bred local guppies.\n',
+                              'All our guppies undergo strict health checks before delivery.\n',
+                        ),
+                        TextSpan(
+                          text: 'Wide Variety:\t',
+                          style: TextStyle(fontStyle: FontStyle.italic),
                         ),
                         TextSpan(
                           text:
-                              'Expert Care:\tOur team consists of experienced breeders who provide the best environment for fish growth.\n\n',
+                              'We offer exotic imports along with well-bred local guppies.\n',
+                        ),
+                        TextSpan(
+                          text: 'Expert Care:\t',
+                          style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
+                        TextSpan(
+                          text:
+                              'Our team consists of experienced breeders who provide the best environment for fish growth.\n\n',
                         ),
                         TextSpan(
                           text: 'Address:\t',

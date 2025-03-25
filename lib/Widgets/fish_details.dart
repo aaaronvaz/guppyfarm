@@ -90,11 +90,18 @@ class _FishDetailsState extends State<FishDetails> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: IconButton(
-                        icon: const Icon(
-                          Icons.favorite_border,
-                          color: Colors.red,
-                          size: 30,
-                        ),
+                        icon:
+                            widget.fishItem.fav
+                                ? const Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.red,
+                                  size: 30,
+                                )
+                                : const Icon(
+                                  Icons.favorite_border_outlined,
+                                  color: Colors.black26,
+                                  size: 30,
+                                ),
                         onPressed: () {} /* widget.onFavorite(context) */,
                         splashRadius: 20,
                       ),

@@ -8,7 +8,7 @@ import 'package:guppy_farm/Module/live_fish.dart';
 import 'package:guppy_farm/Data/fish.dart';
 import 'package:guppy_farm/Widgets/fish_details.dart';
 
-import 'package:guppy_farm/Module/test.dart';
+import 'package:guppy_farm/Module/no_net.dart';
 import 'package:guppy_farm/Module/error.dart';
 
 import 'package:guppy_farm/Module/wish_list.dart';
@@ -35,10 +35,9 @@ class MyApp extends StatelessWidget {
         '/': (context) => const Splash(),
         '/Home': (context) => const Home(),
         '/About': (context) => const About(),
-        '/Contact': (context) => const Splash(),
         '/Category/Live-Fishes': (context) => LiveFish(),
         '/Wish-List': (context) => WishList(),
-        '/test-page': (context) => const TestPage(),
+        '/No-Network': (context) => const NoNet(),
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/FishDetails') {

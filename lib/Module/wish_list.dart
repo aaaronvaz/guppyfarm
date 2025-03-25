@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guppy_farm/Module/base.dart';
 
 import 'package:guppy_farm/Data/fish.dart';
-import 'package:guppy_farm/Data/dummy_data.dart';
+import 'package:guppy_farm/Data/ddata.dart';
 
 import 'package:guppy_farm/Widgets/wish_banner.dart';
 
@@ -14,32 +14,39 @@ class WishList extends StatefulWidget {
 }
 
 class _WishListState extends State<WishList> {
-  final data = DummyData();
+  final data = DData();
   late List<Fish> wishList;
 
   @override
   void initState() {
     super.initState();
     wishList = data.wishList;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      WishBanner(context: context).showBanner();
-    });
+    if (wishList.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        WishBanner(context: context).showBanner();
+      });
+    }
   }
 
   void removeItem(BuildContext ctx, Fish item) {
+    int removedIndex = wishList.indexOf(item);
+    Fish removedFish = item;
+
     setState(() {
-      //removing item state
+      wishList.removeAt(removedIndex); // Remove fish from list
+      //data.removeFromWishList(removedFish);
     });
 
     ScaffoldMessenger.of(ctx).hideCurrentSnackBar();
     ScaffoldMessenger.of(ctx).showSnackBar(
       SnackBar(
         duration: const Duration(milliseconds: 2500),
-        content: const Text('Item Erased'),
+        content: const Text('Product Erased'),
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () {
-            //inserting back to particular index
+            wishList.insert(removedIndex, removedFish); // Restore in list
+            //data.addToWishList(removedFish);
           },
         ),
       ),

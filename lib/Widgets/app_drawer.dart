@@ -19,7 +19,7 @@ class AppDrawer extends StatelessWidget {
                 Icon(Icons.account_circle, size: 70, color: Colors.white),
                 SizedBox(height: 10),
                 Text(
-                  "User Name",
+                  "Guest",
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
                 Text(
@@ -30,8 +30,12 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.home),
-            title: Text("Home"),
+            leading: Icon(
+              Icons.home,
+              color: const Color.fromARGB(255, 243, 219, 1),
+              size: 25,
+            ),
+            title: Text("Home",style: Theme.of(context).textTheme.bodyMedium,),
             onTap:
                 () => {
                   Navigator.pop(context),
@@ -39,8 +43,8 @@ class AppDrawer extends StatelessWidget {
                 },
           ),
           ListTile(
-            leading: Icon(Icons.info),
-            title: Text("About Us"),
+            leading: Icon(Icons.info, color: Colors.teal, size: 25),
+            title: Text("About Us",style: Theme.of(context).textTheme.bodyMedium,),
             onTap:
                 () => {
                   Navigator.pop(context),
@@ -57,17 +61,14 @@ class AppDrawer extends StatelessWidget {
                 },
           ), */
           ExpansionTile(
-            leading: IconTheme(
-              data: IconThemeData(color: Colors.blue),
-              child: Icon(Icons.category),
-            ),
-            title: Text("Categories"),
+            leading: Icon(Icons.category,size: 25,),
+            title: Text("Categories",style: Theme.of(context).textTheme.bodyMedium,),
             initiallyExpanded: true,
             //expansionAnimationStyle: AnimationStyle(),
             children: [
               ListTile(
-                leading: Icon(Icons.water),
-                title: Text("Live Fishes"),
+                leading: Icon(Icons.water, color: Colors.blue,size: 25,),
+                title: Text("Live Fishes",style: Theme.of(context).textTheme.bodyMedium,),
                 onTap:
                     () => {
                       Navigator.pop(context),
@@ -80,8 +81,8 @@ class AppDrawer extends StatelessWidget {
             ],
           ),
           ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text("Wish-List"),
+            leading: Icon(Icons.favorite, color: Colors.red,size: 25,),
+            title: Text("Wish-List",style: Theme.of(context).textTheme.bodyMedium,),
             onTap:
                 () => {
                   Navigator.pop(context),

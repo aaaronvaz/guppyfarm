@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guppy_farm/Data/fish.dart';
-import 'package:guppy_farm/Widgets/fish_details.dart';
+import 'package:guppy_farm/Data/ddata.dart';
 
 class FishCard extends StatefulWidget {
   const FishCard({super.key, required this.item, required this.onFavorite});
@@ -14,6 +14,7 @@ class FishCard extends StatefulWidget {
 
 class _FishCardState extends State<FishCard> {
   late bool isFav;
+  var data = DData();
 
   @override
   void initState() {
@@ -21,11 +22,12 @@ class _FishCardState extends State<FishCard> {
     isFav = widget.item.fav;
   }
 
-  void toggleFavorite(BuildContext ctx) {
+  void toggleFavorite(BuildContext ctx, Fish f) {
+    data.toggleFavorite(widget.item);
     setState(() {
-      isFav = !isFav; 
+      isFav = !isFav;
     });
-    //onFavorite(ctx); 
+    //onFavorite(ctx);
   }
 
   void onCancel(BuildContext ctx) {
@@ -89,7 +91,7 @@ class _FishCardState extends State<FishCard> {
                       color: isFav ? Colors.red : null,
                     ),
                     onPressed: () {
-                      toggleFavorite(context);
+                      toggleFavorite(context,widget.item);
                     },
                     splashRadius: 20,
                   ),

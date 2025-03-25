@@ -10,7 +10,7 @@ class ErrorScreen extends StatelessWidget {
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
-            const Text('Error Caught'),
+            const Text('Error: Navigation'),
             SizedBox(height: 15),
             IconButton(
               onPressed: () {

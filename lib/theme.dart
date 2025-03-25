@@ -16,8 +16,18 @@ class AppTheme {
     ),
     drawerTheme: const DrawerThemeData(backgroundColor: Colors.white),
     textTheme: TextTheme(
-      bodyLarge: GoogleFonts.quicksand(fontSize: 18, color: Colors.black),
-      bodyMedium: GoogleFonts.quicksand(fontSize: 16, color: Colors.black87),
+      bodyLarge: GoogleFonts.quicksand(
+        fontSize: 18,
+        color: Colors.black,
+        fontWeight: FontWeight.w400,
+      ),
+      titleLarge: GoogleFonts.quicksand(
+        fontWeight: FontWeight.bold,
+        fontSize: 22,
+        color: Colors.black,
+      ),
+      bodyMedium: GoogleFonts.quicksand(fontSize: 17, color: Colors.black87),//drawerFont
+      bodySmall: GoogleFonts.quicksand(fontSize: 16, color: Colors.black87),//other widgets
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: Colors.blue, // FAB background color

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:guppy_farm/Module/base.dart';
-import 'package:guppy_farm/Data/dummy_data.dart';
+import 'package:guppy_farm/Data/ddata.dart';
 import 'package:guppy_farm/Widgets/fish_card.dart';
 
 class LiveFish extends StatelessWidget {
   LiveFish({super.key});
-  final data = DummyData();
+  final data = DData();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class LiveFish extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children:
-                    data.fishData.map((fish) {
+                    data.fishList.map((fish) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 12.0),
                         child: FishCard(
@@ -33,7 +33,7 @@ class LiveFish extends StatelessWidget {
                               SnackBar(content: Text("${fish.name} liked!")),
                             );
                           },
-                        ), 
+                        ),
                       );
                     }).toList(),
               ),

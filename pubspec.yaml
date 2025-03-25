@@ -40,8 +40,8 @@ dependencies:
   url_launcher: ^6.3.1
   flutter_carousel_widget: ^3.1.0
   youtube_player_flutter: ^9.1.1
-  flutter_launcher_icons: ^0.14.3
   shimmer: ^3.0.0
+  flutter_launcher_icons: ^0.14.3
 
 dev_dependencies:
   flutter_test:
@@ -68,11 +68,17 @@ flutter:
   assets:
     - Assets/logo.png
     - Assets/Animations/fish_jump.json
+    - Assets/Animations/no_net.json
     - Assets/Fishes/arm.png
     - Assets/Fishes/hbm.png
     - Assets/Fishes/wtf.png
     - Assets/Fishes/wtm.png
     - Assets/Fishes/ylf.png
+    - Assets/Fishes/platinum-mosaic-dumbo-ear-m.png
+    - Assets/Fishes/platinum-red-tail-dumbo-ear-f.png
+    - Assets/Fishes/platinum-red-tail-dumbo-ear-m.png
+    - Assets/Fishes/santa-claus-m.png
+    - Assets/Fishes/tuxedo-koi-high-fin.png
     - Assets/Icons/ig.png
     - Assets/Icons/gm.png
     - Assets/Icons/wa.png

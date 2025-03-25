@@ -4,6 +4,8 @@ import 'package:guppy_farm/Module/base.dart';
 import 'package:guppy_farm/Data/fish.dart';
 import 'package:guppy_farm/Data/dummy_data.dart';
 
+import 'package:guppy_farm/Widgets/wish_banner.dart';
+
 class WishList extends StatefulWidget {
   const WishList({super.key});
 
@@ -19,6 +21,9 @@ class _WishListState extends State<WishList> {
   void initState() {
     super.initState();
     wishList = data.wishList;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      WishBanner(context: context).showBanner();
+    });
   }
 
   void removeItem(BuildContext ctx, Fish item) {
@@ -91,31 +96,65 @@ class _WishListState extends State<WishList> {
                     ),
                     child: Card(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      child: ListTile(
-                        tileColor: Color.fromARGB(255, 151, 205, 255),
-                        leading: ClipRRect(
-                          borderRadius: BorderRadius.circular(
-                            8,
-                          ), // Rounded image
-                          child: Image.asset(
-                            fish.imgPath,
-                            width: 80,
-                            height: 50,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        title: Text(fish.name),
-                        subtitle: Text(fish.type),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.favorite, color: Colors.red),
-                          onPressed: () {
-                            setState(() {
-                              fish.fav = false;
-                              wishList = data.wishList;
-                            });
-                          },
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.asset(
+                                fish.imgPath,
+                                width: 180, // Set a fixed width
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    fish.name,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    "Pair",
+                                    style: TextStyle(color: Colors.grey),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    '₹${fish.price.toStringAsFixed(2)}',
+                                    style: const TextStyle(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  fish.fav = false;
+                                  wishList = data.wishList;
+                                });
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ),

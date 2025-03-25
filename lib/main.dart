@@ -8,6 +8,9 @@ import 'package:guppy_farm/Module/live_fish.dart';
 import 'package:guppy_farm/Data/fish.dart';
 import 'package:guppy_farm/Widgets/fish_details.dart';
 
+import 'package:guppy_farm/Module/test.dart';
+import 'package:guppy_farm/Module/error.dart';
+
 import 'package:guppy_farm/Module/wish_list.dart';
 import 'package:guppy_farm/theme.dart';
 
@@ -35,6 +38,7 @@ class MyApp extends StatelessWidget {
         '/Contact': (context) => const Splash(),
         '/Category/Live-Fishes': (context) => LiveFish(),
         '/Wish-List': (context) => WishList(),
+        '/test-page': (context) => const TestPage(),
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/FishDetails') {
@@ -42,15 +46,15 @@ class MyApp extends StatelessWidget {
 
           if (args != null && args.containsKey('fishItem')) {
             return MaterialPageRoute(
-              builder: (context) => FishDetails(
-                fishItem: args['fishItem'] as Fish,
-                onCancel: args['onCancel'] as VoidCallback,
-                onFavorite: args['onFavorite'] as VoidCallback,
-              ),
+              builder:
+                  (context) => FishDetails(
+                    fishItem: args['fishItem'] as Fish,
+                    ctx: context,
+                  ),
             );
           }
         }
-        return null;
+        return MaterialPageRoute(builder: (context) => const ErrorScreen());
       },
     );
   }

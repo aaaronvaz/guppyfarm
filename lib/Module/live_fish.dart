@@ -18,7 +18,7 @@ class LiveFish extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children:
-                    data.originalList.map((fish) {
+                    data.fishData.map((fish) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 12.0),
                         child: FishCard(

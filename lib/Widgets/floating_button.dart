@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FloatingButton extends StatelessWidget {
@@ -7,12 +8,13 @@ class FloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      mini: false,
       elevation: 10,
       //label: const Text('Contact'),
       //icon: Icon(Icons.message_rounded),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Icon(Icons.message_rounded, size: 40),
+        child: Icon(Icons.sms, size: 40),
       ),
 
       onPressed: () => _showContactOptions(context),
@@ -41,13 +43,13 @@ Future<void> openWhatsApp(String no) async {
 }
 
 Future<void> openGmail() async {
-  final Uri emailUri = Uri(scheme: 'mailto', path: 'blrguppyfarm@gmail.com');
-
+  //Error
+  /* final Uri emailUri = Uri(scheme: 'mailto', path: 'blrguppyfarm@gmail.com');
   if (await canLaunchUrl(emailUri)) {
     await launchUrl(emailUri, mode: LaunchMode.externalApplication);
   } else {
     throw 'Could not launch Gmail';
-  }
+  } */
 }
 
 Future<void> openYouTube() async {
@@ -80,7 +82,7 @@ void _showContactOptions(BuildContext ctx) {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
-    isDismissible: false,
+    isDismissible: true,
     isScrollControlled: true,
     builder: (context) {
       return SingleChildScrollView(
@@ -125,10 +127,43 @@ void _showContactOptions(BuildContext ctx) {
                   "Gmail",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                onTap: () {
-                  Navigator.pop(context);
-                  openGmail();
-                },
+                /* onTap: () async {
+                  await Clipboard.setData(
+                    ClipboardData(text: 'blrguppyfarm@gmail.com'),
+                  );
+
+                  if (!context.mounted) {
+                    return;
+                  }
+
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Email Copied To Clipboard.')),
+                    );
+                  }
+                  //Future.delayed(Duration.zero, () => Navigator.pop(context));
+                }, */
+                trailing: IconButton(
+                  icon: Icon(Icons.copy, size: 30),
+                  onPressed: () async {
+                    await Clipboard.setData(
+                      ClipboardData(text: 'blrguppyfarm@gmail.com'),
+                    );
+
+                    if (!context.mounted) {
+                      return;
+                    }
+
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Email Copied To Clipboard.')),
+                      );
+                    }
+                    //Future.delayed(Duration.zero, () => Navigator.pop(context));
+                  },
+                ),
               ),
               ListTile(
                 leading: Image.asset(

@@ -18,14 +18,14 @@ class _FishCardState extends State<FishCard> {
   @override
   void initState() {
     super.initState();
-    isFav = widget.item.fav; // Initialize with item's favorite status
+    isFav = widget.item.fav;
   }
 
   void toggleFavorite(BuildContext ctx) {
     setState(() {
-      isFav = !isFav; // Toggle favorite status
+      isFav = !isFav; 
     });
-    onFavorite(ctx); // Trigger the callback
+    //onFavorite(ctx); 
   }
 
   void onCancel(BuildContext ctx) {
@@ -45,7 +45,7 @@ class _FishCardState extends State<FishCard> {
             fontWeight: FontWeight.w600,
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 56, 161, 247),
+        //backgroundColor: const Color.fromARGB(255, 56, 161, 247),
       ),
     );
   }
@@ -55,14 +55,11 @@ class _FishCardState extends State<FishCard> {
     return GestureDetector(
       onTap: () {
         print('FishDetails');
+        //Navigator.pushReplacementNamed(context, '/test-page');
         Navigator.pushNamed(
           context,
           '/FishDetails',
-          arguments: {
-            'fishItem': widget.item,
-            'onCancel': () => onCancel(context),
-            'onFavorite': (context) => onFavorite(context),
-          },
+          arguments: {'fishItem': widget.item},
         );
       },
       child: Card(

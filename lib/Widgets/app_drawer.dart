@@ -47,15 +47,15 @@ class AppDrawer extends StatelessWidget {
                   Navigator.pushReplacementNamed(context, '/About'),
                 },
           ),
-          ListTile(
-            leading: Icon(Icons.phone),
+          /* ListTile(
+            leading: Icon(Icons.sms),
             title: Text('Contact Us'),
             onTap:
                 () => {
                   Navigator.pop(context),
                   Navigator.pushReplacementNamed(context, '/Contact'),
                 },
-          ),
+          ), */
           ExpansionTile(
             leading: IconTheme(
               data: IconThemeData(color: Colors.blue),
@@ -80,7 +80,7 @@ class AppDrawer extends StatelessWidget {
             ],
           ),
           ListTile(
-            leading: Icon(Icons.favorite_border),
+            leading: Icon(Icons.favorite),
             title: Text("Wish-List"),
             onTap:
                 () => {

@@ -12,7 +12,7 @@ class AppTheme {
         fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
-      iconTheme: IconThemeData(color: Colors.white), // Icon color in AppBar
+      iconTheme: IconThemeData(color: Colors.white),
     ),
     drawerTheme: const DrawerThemeData(backgroundColor: Colors.white),
     textTheme: TextTheme(
@@ -26,18 +26,18 @@ class AppTheme {
         fontSize: 22,
         color: Colors.black,
       ),
-      bodyMedium: GoogleFonts.quicksand(fontSize: 17, color: Colors.black87),//drawerFont
-      bodySmall: GoogleFonts.quicksand(fontSize: 16, color: Colors.black87),//other widgets
+      bodyMedium: GoogleFonts.quicksand(fontSize: 17, color: Colors.black87),
+      bodySmall: GoogleFonts.quicksand(fontSize: 16, color: Colors.black87),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: Colors.blue, // FAB background color
-      foregroundColor: Colors.white, // Icon color
-      elevation: 6.0, // Shadow effect
+      backgroundColor: Colors.blue,
+      foregroundColor: Colors.white,
+      elevation: 6.0,
       iconSize: 40,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       sizeConstraints: BoxConstraints.tightFor(
-        width: 60.0, // Standard FAB width
-        height: 60.0, // Standard FAB height
+        width: 60.0,
+        height: 60.0,
       ),
       extendedPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     ),

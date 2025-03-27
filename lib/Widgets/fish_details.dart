@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:guppy_farm/Data/fish.dart';
+import 'package:guppy_farm/Service/firestore_service.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:guppy_farm/Widgets/floating_button.dart';
 import 'package:guppy_farm/Widgets/fish_desc.dart';
 
@@ -8,20 +9,49 @@ class FishDetails extends StatefulWidget {
     super.key,
     required this.fishItem,
     required this.ctx,
-    /* required this.onCancel,
-    required this.onFavorite, */
   });
 
-  final Fish fishItem;
-  final BuildContext ctx;
-  /* final Function onCancel;
-  final Function onFavorite; */
+  final Map<String, dynamic>? fishItem;
+  
+  final BuildContext ctx; // Null safety
 
   @override
   State<FishDetails> createState() => _FishDetailsState();
 }
 
 class _FishDetailsState extends State<FishDetails> {
+  late bool isFav;
+  final FirestoreService _firestoreService = FirestoreService();
+
+  @override
+  void initState() {
+    super.initState();
+    isFav = widget.fishItem?['fav'] ?? false; // Prevent crash if null
+  }
+
+  void toggleFavorite() async {
+    if (widget.fishItem == null || widget.fishItem!['id'] == null) return;
+
+    String fishId = widget.fishItem!['id'];
+    await _firestoreService.toggleFavorite(fishId, isFav);
+    setState(() {
+      isFav = !isFav;
+    });
+    showSnackBar(context, '${widget.fishItem!['name'] ?? 'Fish'}Liked');
+  }
+
+  void showSnackBar(BuildContext ctx, String message) {
+    ScaffoldMessenger.of(ctx).hideCurrentSnackBar();
+    ScaffoldMessenger.of(ctx).showSnackBar(
+      SnackBar(
+        duration: const Duration(milliseconds: 900),
+        content: Text(
+          message,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +59,7 @@ class _FishDetailsState extends State<FishDetails> {
       body: SafeArea(
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12), // Rounded corners
+            borderRadius: BorderRadius.circular(12),
           ),
           elevation: 4,
           child: Column(
@@ -45,18 +75,22 @@ class _FishDetailsState extends State<FishDetails> {
                     child: InteractiveViewer(
                       minScale: 1,
                       maxScale: 2.5,
-                      child: Image.asset(
-                        widget.fishItem.imgPath,
-                        height: 300,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
-                    ) /* Image.asset(
-                      widget.fishItem.imgPath,
-                      width: 800,
-                      height: 350,
-                      fit: BoxFit.contain,
-                    ), */,
+                      child: widget.fishItem?['imageUrl'] != null
+                          ? Image.network(
+                              widget.fishItem!['imageUrl'],
+                              width: double.infinity,
+                              height: 200,
+                              fit: BoxFit.cover,
+                              loadingBuilder: (context, child, loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return _loadingPlaceholder();
+                              },
+                              errorBuilder: (context, error, stackTrace) {
+                                return _errorPlaceholder();
+                              },
+                            )
+                          : _loadingPlaceholder(),
+                    ),
                   ),
                   Positioned(
                     top: 8,
@@ -75,7 +109,7 @@ class _FishDetailsState extends State<FishDetails> {
                         ),
                         onPressed: () {
                           Navigator.of(widget.ctx).pop();
-                        } /* widget.onCancel(context) */,
+                        },
                         splashRadius: 20,
                       ),
                     ),
@@ -90,19 +124,12 @@ class _FishDetailsState extends State<FishDetails> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: IconButton(
-                        icon:
-                            widget.fishItem.fav
-                                ? const Icon(
-                                  Icons.favorite_border,
-                                  color: Colors.red,
-                                  size: 30,
-                                )
-                                : const Icon(
-                                  Icons.favorite_border_outlined,
-                                  color: Colors.black26,
-                                  size: 30,
-                                ),
-                        onPressed: () {} /* widget.onFavorite(context) */,
+                        icon: Icon(
+                          isFav ? Icons.favorite : Icons.favorite_border_outlined,
+                          color: Colors.red,
+                          size: 30,
+                        ),
+                        onPressed: toggleFavorite,
                         splashRadius: 20,
                       ),
                     ),
@@ -115,14 +142,13 @@ class _FishDetailsState extends State<FishDetails> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.fishItem.name,
+                      widget.fishItem?['name'] ?? 'Unknown',
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.left,
                     ),
-                    //const Divider(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -131,7 +157,7 @@ class _FishDetailsState extends State<FishDetails> {
                           style: TextStyle(fontSize: 18, color: Colors.black38),
                         ),
                         Text(
-                          "₹${widget.fishItem.price.toStringAsFixed(2)}",
+                          "₹550",
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -148,6 +174,36 @@ class _FishDetailsState extends State<FishDetails> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  /// Shimmer effect for loading state
+  Widget _loadingPlaceholder() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        width: double.infinity,
+        height: 200,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    );
+  }
+
+  /// Error placeholder image
+  Widget _errorPlaceholder() {
+    return Container(
+      width: double.infinity,
+      height: 200,
+      color: Colors.grey[300],
+      child: const Icon(
+        Icons.broken_image,
+        color: Colors.grey,
+        size: 50,
       ),
     );
   }

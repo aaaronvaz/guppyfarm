@@ -8,7 +8,7 @@ class BaseScreen extends StatelessWidget {
   final Widget body;
   final bool enableFloat;
 
-  BaseScreen({super.key, required this.title, required this.body})
+  const BaseScreen({super.key, required this.title, required this.body})
     : enableFloat = title == "About Us";
 
   @override

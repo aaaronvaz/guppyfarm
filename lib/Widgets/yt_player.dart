@@ -12,7 +12,7 @@ class YtPlayer extends StatefulWidget {
 
 class _YtPlayerState extends State<YtPlayer> {
   late YoutubePlayerController _controller;
-  bool _isPlayerReady = false;
+  bool _isPlayerReady = true;
 
   @override
   void initState() {

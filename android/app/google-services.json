@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "860480280748",
+    "project_id": "blr-gf",
+    "storage_bucket": "blr-gf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860480280748:android:8be54ea3685436c3d32709",
+        "android_client_info": {
+          "package_name": "com.example.guppy_farm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvwHDRSCjJlmb1lr753e4DDO97IIZKYRg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'package:guppy_farm/Module/home.dart';
 import 'package:guppy_farm/Module/about.dart';
@@ -12,10 +13,14 @@ import 'package:guppy_farm/Module/no_net.dart';
 import 'package:guppy_farm/Module/error.dart';
 
 import 'package:guppy_farm/Module/wish_list.dart';
+import 'package:guppy_farm/firebase_options.dart';
 import 'package:guppy_farm/theme.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((fn) => runApp(MyApp()));
@@ -47,7 +52,7 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(
               builder:
                   (context) => FishDetails(
-                    fishItem: args['fishItem'] as Fish,
+                    fishItem: args['fishItem'] as Map<String, dynamic>,
                     ctx: context,
                   ),
             );

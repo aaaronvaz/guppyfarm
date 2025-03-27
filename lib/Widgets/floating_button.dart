@@ -61,8 +61,8 @@ Future<void> openYouTube() async {
 }
 
 Future<void> openInstagram() async {
-  final Uri appUrl = Uri.parse("instagram://user?username=wwe");
-  final Uri webUrl = Uri.parse("https://www.instagram.com/wwe");
+  final Uri appUrl = Uri.parse("instagram://user?username=varghese_thomas_panicker");
+  final Uri webUrl = Uri.parse("https://www.instagram.com/varghese_thomas_panicker/");
 
   if (await canLaunchUrl(appUrl)) {
     await launchUrl(appUrl, mode: LaunchMode.externalApplication);

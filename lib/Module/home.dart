@@ -40,7 +40,7 @@ class Home extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Color.fromARGB(255, 49, 157, 245),
+                  color: Color.fromARGB(220, 49, 157, 245),
                   /* gradient: LinearGradient(
                     colors: [const Color.fromARGB(255, 139, 210, 243), const Color.fromARGB(255, 49, 157, 245)],
                     begin: Alignment.topLeft,
@@ -51,14 +51,17 @@ class Home extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
                   'Do you know, Guppies help control mosquito populations by eating larvae in water?',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium!.copyWith(fontStyle: FontStyle.italic),
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w500,
+                  ),
                   textAlign: TextAlign.center,
                   softWrap: true,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 4),
+              const Divider(color: Colors.blueGrey),
+              const SizedBox(height: 4),
               YtPlayer(),
             ],
           ),

@@ -4,31 +4,36 @@ class DData {
   List<Fish> fishData = [
     Fish(
       name: 'White Tuxedo',
-      imgPath: 'Assets/Fishes/wtm.png',
+      imgPath:
+          'https://i.ytimg.com/vi/jhyHB0L8VFQ/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBfw929k46EfyhyJkeWtpFkprho1A',
       type: 'M',
       price: 150,
     ),
     Fish(
       name: 'White Tuxedo',
-      imgPath: 'Assets/Fishes/wtf.png',
+      imgPath:
+          'https://i.ytimg.com/vi/zblnVGJxxa8/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLANu2xB9f78m5zTmy0vfIC3kK_MhA',
       type: 'F',
       price: 150,
     ),
     Fish(
       name: 'HB Blue',
-      imgPath: 'Assets/Fishes/hbm.png',
+      imgPath:
+          'https://i.ytimg.com/vi/BTTQPEWWYkQ/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLAGacujcjfMeH4HyQKs4Uf_biiUpw',
       type: 'M',
       price: 150,
     ),
     Fish(
       name: 'Yello Lace',
-      imgPath: 'Assets/Fishes/ylf.png',
+      imgPath:
+          'https://i.ytimg.com/vi/v6fkc1UdvZ4/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLAMWtHWvEgCuaRkk_s-G_Pkc8waVw',
       type: 'F',
       price: 150,
     ),
     Fish(
       name: 'Albino Red',
-      imgPath: 'Assets/Fishes/arm.png',
+      imgPath:
+          'https://i.ytimg.com/vi/XKwediSWuIE/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCU2CjEYc5iaRAe5GnrHm0LZVbNjQ',
       type: 'M',
       price: 150,
     ),
@@ -54,7 +59,8 @@ class DData {
     ),
     Fish(
       name: 'Tuxedo Koi High Fin',
-      imgPath: 'Assets/Fishes/tuxedo-koi-high-fin.png',
+      imgPath:
+          'https://i.ytimg.com/vi/qXoST2G75xI/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLD5zawnfcMuiFhw0hv2wsrSuJBT0A',
       type: 'M',
       fav: true,
       price: 150,

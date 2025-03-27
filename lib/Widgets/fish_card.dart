@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:guppy_farm/Data/fish.dart';
-import 'package:guppy_farm/Data/ddata.dart';
+import 'package:guppy_farm/Service/firestore_service.dart';
+import 'package:shimmer/shimmer.dart';
 
 class FishCard extends StatefulWidget {
-  const FishCard({super.key, required this.item, required this.onFavorite});
+  const FishCard({super.key, required this.item});
 
-  final Fish item;
-  final VoidCallback onFavorite;
+  final Map<String, dynamic>? item; // Allow null values
 
   @override
   State<FishCard> createState() => _FishCardState();
@@ -14,50 +13,46 @@ class FishCard extends StatefulWidget {
 
 class _FishCardState extends State<FishCard> {
   late bool isFav;
-  var data = DData();
+  final FirestoreService _firestoreService = FirestoreService();
 
   @override
   void initState() {
     super.initState();
-    isFav = widget.item.fav;
+    isFav = widget.item?['fav'] ?? false;
   }
 
-  void toggleFavorite(BuildContext ctx, Fish f) {
-    data.toggleFavorite(widget.item);
+  void toggleFavorite() async {
+    if (widget.item == null || widget.item!['id'] == null) return;
+
+    String fishId = widget.item!['id'];
+    await _firestoreService.toggleFavorite(fishId, isFav); 
     setState(() {
       isFav = !isFav;
     });
-    //onFavorite(ctx);
+    showSnackBar(context, '${widget.item!['name'] ?? 'Fish'}Liked');
   }
 
-  void onCancel(BuildContext ctx) {
-    Navigator.of(ctx).pop();
-  }
-
-  void onFavorite(BuildContext ctx) {
+  void showSnackBar(BuildContext ctx, String message) {
     ScaffoldMessenger.of(ctx).hideCurrentSnackBar();
     ScaffoldMessenger.of(ctx).showSnackBar(
       SnackBar(
         duration: const Duration(milliseconds: 900),
         content: Text(
-          '${widget.item.name} Liked',
-          style: const TextStyle(
-            fontSize: 20,
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-          ),
+          message,
         ),
-        //backgroundColor: const Color.fromARGB(255, 56, 161, 247),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.item == null) {
+      return _loadingPlaceholder();
+    }
+
     return GestureDetector(
       onTap: () {
-        print('FishDetails');
-        //Navigator.pushReplacementNamed(context, '/test-page');
+        if (widget.item == null) return;
         Navigator.pushNamed(
           context,
           '/FishDetails',
@@ -74,12 +69,21 @@ class _FishCardState extends State<FishCard> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(25),
-                  child: Image.asset(
-                    widget.item.imgPath,
-                    width: double.infinity,
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
+                  child: widget.item?['imageUrl'] != null
+                      ? Image.network(
+                          widget.item!['imageUrl'],
+                          width: double.infinity,
+                          height: 200,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return _loadingPlaceholder();
+                          },
+                          errorBuilder: (context, error, stackTrace) {
+                            return _errorPlaceholder();
+                          },
+                        )
+                      : _loadingPlaceholder(),
                 ),
                 Positioned(
                   top: 8,
@@ -90,9 +94,7 @@ class _FishCardState extends State<FishCard> {
                       isFav ? Icons.favorite : Icons.favorite_border,
                       color: isFav ? Colors.red : null,
                     ),
-                    onPressed: () {
-                      toggleFavorite(context,widget.item);
-                    },
+                    onPressed: toggleFavorite,
                     splashRadius: 20,
                   ),
                 ),
@@ -109,8 +111,9 @@ class _FishCardState extends State<FishCard> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
-                      widget.item.name,
+                      widget.item?['name'] ?? 'Unknown',
                       style: const TextStyle(
+                        overflow: TextOverflow.clip,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.italic,
@@ -122,6 +125,36 @@ class _FishCardState extends State<FishCard> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  /// 🔄 Shimmer effect placeholder
+  Widget _loadingPlaceholder() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        width: double.infinity,
+        height: 200,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(25),
+        ),
+      ),
+    );
+  }
+
+  /// ❌ Error placeholder
+  Widget _errorPlaceholder() {
+    return Container(
+      width: double.infinity,
+      height: 200,
+      color: Colors.grey[300],
+      child: const Icon(
+        Icons.broken_image,
+        color: Colors.grey,
+        size: 50,
       ),
     );
   }

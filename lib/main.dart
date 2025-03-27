@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:guppy_farm/Module/home.dart';
 import 'package:guppy_farm/Module/about.dart';
 import 'package:guppy_farm/Module/splash.dart';
 import 'package:guppy_farm/Module/live_fish.dart';
-import 'package:guppy_farm/Data/fish.dart';
 import 'package:guppy_farm/Widgets/fish_details.dart';
 
 import 'package:guppy_farm/Module/no_net.dart';
@@ -21,6 +21,7 @@ void main() async {
   await Firebase.initializeApp(
   options: DefaultFirebaseOptions.currentPlatform,
 );
+await dotenv.load();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((fn) => runApp(MyApp()));

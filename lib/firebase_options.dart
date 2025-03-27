@@ -51,15 +51,15 @@ class DefaultFirebaseOptions {
   }
 
   static FirebaseOptions android = FirebaseOptions(
-    apiKey: dotenv.env['FIREBASE_API_KEY'] ?? '',
+    apiKey: dotenv.env['GOOGLE_API_KEY'] ?? '',
     appId: '1:860480280748:android:8be54ea3685436c3d32709',
     messagingSenderId: '860480280748',
     projectId: 'blr-gf',
     storageBucket: 'blr-gf.firebasestorage.app',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBwZcl3P2uHFuoHoOFCqYpVwKrKO_jdf1w',
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: dotenv.env['GOOGLE_API_KEY_IOS'] ?? '',
     appId: '1:860480280748:ios:87a4eec3533998f7d32709',
     messagingSenderId: '860480280748',
     projectId: 'blr-gf',

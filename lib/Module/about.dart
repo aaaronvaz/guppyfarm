@@ -1,8 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:guppy_farm/Module/base.dart';
 
 class About extends StatelessWidget {
   const About({super.key});
+
+  final double latitude = 13.007036341716127;
+  final double longitude = 77.62891922205256;
+
+  Future<void> _openGoogleMaps() async {
+    final Uri googleMapsAppUrl = Uri.parse(
+      "geo:$latitude,$longitude?q=$latitude,$longitude",
+    );
+    final Uri googleMapsWebUrl = Uri.parse(
+      "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude",
+    );
+
+    if (await canLaunchUrl(googleMapsAppUrl)) {
+      await launchUrl(googleMapsAppUrl, mode: LaunchMode.externalApplication);
+    } else {
+      await launchUrl(googleMapsWebUrl, mode: LaunchMode.externalApplication);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,12 +125,25 @@ class About extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 50),
-            /* const Text(
-              'Some Snapshots..',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Container(
+              height: 65,
+              alignment: Alignment.centerLeft,
+              child: InkWell(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 5,
+                    horizontal: 10,
+                  ),
+                  child: Image.asset(
+                    'Assets/Icons/map.png',
+                    fit: BoxFit.contain,
+                    height: 55,
+                    width: 80,
+                  ),
+                ),
+                onTap: () => _openGoogleMaps(),
+              ),
             ),
-            const SizedBox(height: 20), */
           ],
         ),
       ),

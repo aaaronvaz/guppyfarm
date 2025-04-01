@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:guppy_farm/Module/base.dart';
 import 'package:guppy_farm/Widgets/wish_banner.dart';
 import 'package:guppy_farm/Service/firestore_service.dart'; // Import Firestore service
@@ -76,22 +77,36 @@ class _WishListState extends State<WishList> {
               ? Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(10),
+                alignment: Alignment.center,
                 decoration: BoxDecoration(
                   border: Border.all(width: 1, color: Colors.blueGrey),
                 ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Empty List',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: SizedBox(
+                        height: 250, 
+                        width: 400, 
+                        child: Lottie.asset(
+                          'Assets/Animations/fishing.json',
+                          fit: BoxFit.cover, 
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'No Fish Found.',
+                      textAlign:
+                          TextAlign.center, 
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 20,
+                        color: Colors.blueGrey,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               )
               : ListView.builder(

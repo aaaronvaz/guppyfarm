@@ -9,7 +9,7 @@ class FirestoreService {
       QuerySnapshot snapshot = await _db.collection('fishes').get();
       return snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        data['id'] = doc.id; // Add document ID for future updates
+        data['id'] = doc.id;
         print('entires: ${data.length}');
         return data;
       }).toList();
@@ -19,11 +19,10 @@ class FirestoreService {
     }
   }
 
-  // Toggle favorite status
   Future<void> toggleFavorite(String fishId, bool currentFav) async {
     try {
       await _db.collection('fishes').doc(fishId).update({
-        'fav': !currentFav, // Toggle the value
+        'fav': !currentFav,
       });
     } catch (e) {
       print('Error updating favorite status: $e');
@@ -36,7 +35,7 @@ class FirestoreService {
           await _db.collection('fishes').where('fav', isEqualTo: true).get();
       return snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        data['id'] = doc.id; // Add document ID
+        data['id'] = doc.id;
         return data;
       }).toList();
     } catch (e) {

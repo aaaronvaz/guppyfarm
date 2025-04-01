@@ -18,10 +18,10 @@ import 'package:guppy_farm/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: 'lib/.env');
   await Firebase.initializeApp(
   options: DefaultFirebaseOptions.currentPlatform,
 );
-await dotenv.load();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((fn) => runApp(MyApp()));

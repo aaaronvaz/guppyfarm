@@ -21,8 +21,12 @@ class Carousel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            "Featured Fishes",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            "Some featured fishes",
+            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(height: 10),
           FlutterCarousel.builder(
@@ -87,11 +91,11 @@ class Carousel extends StatelessWidget {
             options: FlutterCarouselOptions(
               height: 270,
               viewportFraction: 0.8, // Optimized fraction for smooth swipes
-              enableInfiniteScroll: true,
+              enableInfiniteScroll: false,
               showIndicator: false,
               //autoPlay: true,
               //autoPlayInterval:
-              autoPlayAnimationDuration: Duration(milliseconds: 800),
+              //autoPlayAnimationDuration: Duration(milliseconds: 800),
               enlargeCenterPage: true,
             ),
           ),

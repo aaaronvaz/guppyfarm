@@ -5,15 +5,10 @@ import 'package:guppy_farm/Widgets/floating_button.dart';
 import 'package:guppy_farm/Widgets/fish_desc.dart';
 
 class FishDetails extends StatefulWidget {
-  const FishDetails({
-    super.key,
-    required this.fishItem,
-    required this.ctx,
-  });
+  const FishDetails({super.key, required this.fishItem, required this.ctx});
 
   final Map<String, dynamic>? fishItem;
-  
-  final BuildContext ctx; // Null safety
+  final BuildContext ctx;
 
   @override
   State<FishDetails> createState() => _FishDetailsState();
@@ -26,7 +21,7 @@ class _FishDetailsState extends State<FishDetails> {
   @override
   void initState() {
     super.initState();
-    isFav = widget.fishItem?['fav'] ?? false; // Prevent crash if null
+    isFav = widget.fishItem?['fav'] ?? false;
   }
 
   void toggleFavorite() async {
@@ -45,9 +40,7 @@ class _FishDetailsState extends State<FishDetails> {
     ScaffoldMessenger.of(ctx).showSnackBar(
       SnackBar(
         duration: const Duration(milliseconds: 900),
-        content: Text(
-          message,
-        ),
+        content: Text(message),
       ),
     );
   }
@@ -75,21 +68,26 @@ class _FishDetailsState extends State<FishDetails> {
                     child: InteractiveViewer(
                       minScale: 1,
                       maxScale: 2.5,
-                      child: widget.fishItem?['imageUrl'] != null
-                          ? Image.network(
-                              widget.fishItem!['imageUrl'],
-                              width: double.infinity,
-                              height: 200,
-                              fit: BoxFit.cover,
-                              loadingBuilder: (context, child, loadingProgress) {
-                                if (loadingProgress == null) return child;
-                                return _loadingPlaceholder();
-                              },
-                              errorBuilder: (context, error, stackTrace) {
-                                return _errorPlaceholder();
-                              },
-                            )
-                          : _loadingPlaceholder(),
+                      child:
+                          widget.fishItem?['imageUrl'] != null
+                              ? Image.network(
+                                widget.fishItem!['imageUrl'],
+                                width: double.infinity,
+                                height: 200,
+                                fit: BoxFit.cover,
+                                loadingBuilder: (
+                                  context,
+                                  child,
+                                  loadingProgress,
+                                ) {
+                                  if (loadingProgress == null) return child;
+                                  return _loadingPlaceholder();
+                                },
+                                errorBuilder: (context, error, stackTrace) {
+                                  return _errorPlaceholder();
+                                },
+                              )
+                              : _loadingPlaceholder(),
                     ),
                   ),
                   Positioned(
@@ -125,7 +123,9 @@ class _FishDetailsState extends State<FishDetails> {
                       ),
                       child: IconButton(
                         icon: Icon(
-                          isFav ? Icons.favorite : Icons.favorite_border_outlined,
+                          isFav
+                              ? Icons.favorite
+                              : Icons.favorite_border_outlined,
                           color: Colors.red,
                           size: 30,
                         ),
@@ -149,6 +149,7 @@ class _FishDetailsState extends State<FishDetails> {
                       ),
                       textAlign: TextAlign.left,
                     ),
+                    const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -167,6 +168,16 @@ class _FishDetailsState extends State<FishDetails> {
                       ],
                     ),
                     const Divider(),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Fish Care Guide',
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.underline,
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                    const SizedBox(height: 4),
                     FishDesc(),
                   ],
                 ),
@@ -200,11 +211,7 @@ class _FishDetailsState extends State<FishDetails> {
       width: double.infinity,
       height: 200,
       color: Colors.grey[300],
-      child: const Icon(
-        Icons.broken_image,
-        color: Colors.grey,
-        size: 50,
-      ),
+      child: const Icon(Icons.broken_image, color: Colors.grey, size: 50),
     );
   }
 }
